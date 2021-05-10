@@ -34,17 +34,8 @@ jobs:
             # Upload results
       - store_artifacts: # upload test coverage as artifact
           path: ./coverage/lcov.info
-          prefix: tests
       - store_artifacts: # Save tests results as artifacts
           path: test-results.xml
-          prefix: tests
-      - store_artifacts: # Save coverage reports as artifacts
-          path: coverage
-          prefix: coverage
-      - store_test_results:
-          path: test_results
-      - store_artifacts:
-          path: test_results
           
 
 workflows:
