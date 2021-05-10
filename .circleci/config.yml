@@ -8,12 +8,10 @@ jobs:
       - checkout
       - run:
           name: install npm dependencies
-          command: |
-          npm install
+          command: npm install
       - run:
           name: Run Tests
-          command: |
-          ./node_modules/jest src/test --reporter-options reportDir=test-results,reportFilename=test-results
+          command: npm run test
       - store_test_results:
           path: test_results
       - store_artifacts:
