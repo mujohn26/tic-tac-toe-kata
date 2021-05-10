@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest src/test",
+    "test": "jest --updateSnapshot --config jest.config.js",
     "babel-node": "babel-node --presets='@babel/preset-env'",
-    "coverage": "nyc npm run test",
     "test:ci": "jest --updateSnapshot --no-cache --maxWorkers=2 --config jest.config.js --coverage -u"
   },
   "repository": {
