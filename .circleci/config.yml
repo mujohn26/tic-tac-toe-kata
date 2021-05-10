@@ -23,7 +23,7 @@ jobs:
                     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
                     chmod +x ./cc-test-reporter
                     ./cc-test-reporter before-build
-                when: always
+          when: always
       - run:
             name: Send coverage report to Code Climate
             command:
@@ -34,13 +34,10 @@ jobs:
             # Upload results
       - store_artifacts: # upload test coverage as artifact
             path: ./coverage/lcov.info
-            prefix: tests
       - store_artifacts: # Save tests results as artifacts
           path: test-results.xml
-          prefix: tests
       - store_artifacts: # Save coverage reports as artifacts
           path: coverage
-          prefix: coverage
       - store_test_results:
           path: test_results
       - store_artifacts:
