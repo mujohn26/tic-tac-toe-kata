@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/mujohn26/tic-tac-toe-kata.svg?style=shield&circle-token=ce750d81316cc7e8c80f3654efb44eb69adb0315)](https://circleci.com/gh/mujohn26/tic-tac-toe-kata/?branch=main)
+[![CircleCI](https://circleci.com/gh/mujohn26/tic-tac-toe-kata.svg?style=shield&circle-token=ce750d81316cc7e8c80f3654efb44eb69adb0315)](https://circleci.com/gh/mujohn26/tic-tac-toe-kata/?branch=main)[![Test Coverage](https://api.codeclimate.com/v1/badges/51e36e49d5e6ccabc819/test_coverage)](https://codeclimate.com/github/mujohn26/tic-tac-toe-kata/test_coverage)
 # :bomb:Readme tic-tac-toe kata
 
 ### :video_game: How to play
