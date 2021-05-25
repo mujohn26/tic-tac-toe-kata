@@ -1,6 +1,11 @@
+import Winner from "./winner";
+
+
 
 class Validation {
+  
   constructor() {
+    // This can be a static constant variable
     this.winCombinations = [
       [0, 1, 2],
       [0, 3, 6],
@@ -23,23 +28,32 @@ class Validation {
     if (board[index] === "X" || board[index] === "O") {
       return false;
     }
-
     return true;
   }
 
-  static isGameOver(board, player) {
-    var i, j, markCount;
+  static isEmptyBoard(board) {
+    return board.every((value) => {
+      return value !== "X" && value !== "O";
+    });
+  }
+
+  static isGameOver(board) {
     const validation = new Validation();
-    for (i = 0; i < validation.winCombinations.length; i++) {
-      markCount = 0;
-      for (j = 0; j < validation.winCombinations.length; j++) {
-        if (board[validation.winCombinations[i][j]] === player.symbol) {
-          markCount++;
-        }
-        if (markCount === 3) {
-          return true;
-        }
-      }
+    if (this.isEmptyBoard(board)) {
+      return false;
+    }
+
+    if (
+      board.every((value) => {
+        return value === "X" || value === "O";
+      })
+    ) {
+      return true;
+    }
+
+    const winner = new Winner(validation.winCombinations);
+    if (winner.getWinner(board)) {
+      return true;
     }
     return false;
   }

@@ -1,15 +1,18 @@
 class Board {
   constructor() {
-    this.values = new Array(9).fill(null);
+    this.values =  Array.apply(null, { length: 9 }).map(function (_, index) {
+      return index ;
+    });
   }
 
   mark(index, symbol) {
-    if (this.values[index] === null) {
+    if (this.values[index] !== 'X' && this.values[index]!=='O') {
       this.values[index] = symbol;
     }
   }
 
   print() {
+
     const returnData =
       "\n" +
       " " +
@@ -19,7 +22,7 @@ class Board {
       " | " +
       this.values[2] +
       "\n" +
-      " ------------------\n" +
+      " ----------\n" +
       " " +
       this.values[3] +
       " | " +
@@ -27,7 +30,7 @@ class Board {
       " | " +
       this.values[5] +
       "\n" +
-      " ------------------\n" +
+      " ----------\n" +
       " " +
       this.values[6] +
       " | " +

@@ -8,17 +8,7 @@ describe("Board", () => {
     console.log("print something");
 
     const board = new Board();
-    expect(board.values).toEqual([
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-    ]);
+    expect(board.values).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
     console.log = oldConsoleLog;
   });
@@ -27,18 +17,7 @@ describe("Board", () => {
     const board = new Board();
 
     board.mark(0, "X");
-
-    expect(board.values).toEqual([
-      "X",
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-    ]);
+    expect(board.values).toEqual(["X", 1, 2, 3, 4, 5, 6, 7, 8]);
   });
 
   it("marks the board with an O and index 1", () => {
@@ -46,17 +25,7 @@ describe("Board", () => {
 
     board.mark(1, "O");
 
-    expect(board.values).toEqual([
-      null,
-      "O",
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-    ]);
+    expect(board.values).toEqual([0, "O", 2, 3, 4, 5, 6, 7, 8]);
   });
 
   it("does not overwrite a spot if it's already marked", () => {
@@ -65,17 +34,7 @@ describe("Board", () => {
     board.mark(0, "X");
     board.mark(0, "O"); // Should this throw an error?
 
-    expect(board.values).toEqual([
-      "X",
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-    ]);
+    expect(board.values).toEqual(["X", 1, 2, 3, 4, 5, 6, 7, 8]);
   });
 
   it("prints empy board", () => {
@@ -94,7 +53,7 @@ describe("Board", () => {
       " | " +
       board.values[2] +
       "\n" +
-      " ------------------\n" +
+      " ----------\n" +
       " " +
       board.values[3] +
       " | " +
@@ -102,7 +61,7 @@ describe("Board", () => {
       " | " +
       board.values[5] +
       "\n" +
-      " ------------------\n" +
+      " ----------\n" +
       " " +
       board.values[6] +
       " | " +

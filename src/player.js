@@ -9,6 +9,7 @@ class HumanPlayer {
   async getMove() {
     console.log("Its your turn player:", this.symbol);
     const { position } = await prompt.get(["position"]);
+
     return position;
   }
 }

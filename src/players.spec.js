@@ -1,4 +1,5 @@
 import Players from "./players";
+import Player from './player';
 
 describe("Players", () => {
   it("returns current player", () => {
@@ -16,6 +17,7 @@ describe("Players", () => {
     const players = new Players(["X", "O"]);
     players.setNextPlayer();
     players.setNextPlayer();
+
     expect(players.getCurrentPlayer()).toEqual("X");
   });
 });
