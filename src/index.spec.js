@@ -1,4 +1,4 @@
-import Board from "./board";
+import {Board} from "./board";
 
 describe("Index", () => {
   it("calls console.log with board", () => {

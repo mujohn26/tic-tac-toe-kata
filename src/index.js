@@ -1,9 +1,7 @@
-import Board from "./board";
+import { Board, BoardPrinter } from "./board";
 import HumanPlayer from "./player";
-import Validations from "./validations";
+import GameRules from "./game.rules";
 import Players from "./players";
-import Winner from "./winner";
-import Validation from "./validations";
 
 class WinnerPrinter {
   constructor(winner) {
@@ -21,8 +19,8 @@ export class Game {
     this.playerX = new HumanPlayer("X");
     this.playerO = new HumanPlayer("O");
     this.players = new Players([this.playerX, this.playerO]);
-    const validation = new Validation();
-    this.winner = new Winner(validation.winCombinations);
+    this.gameRules = new GameRules();
+    this.boardPrinter = new BoardPrinter();
   }
 
   async start() {
@@ -30,26 +28,26 @@ export class Game {
       let moveIndex;
       const currentPlayer = this.players.getCurrentPlayer();
       // Print board with first style
+      console.log(this.boardPrinter.printer("", this.board.values,'number'));
       // Print board with second style
-
-      // console.log(this.board.print());
+     console.log(this.boardPrinter.printer('-', this.board.values))
 
       // Use new GameRules class here, use a more friendly method name
-      while (!Validations.___isValidMove(this.board.values, moveIndex)) {
+      while (!GameRules.isValidMove(this.board.values, moveIndex)) {
         moveIndex = await currentPlayer.getMove();
       }
       this.board.mark(moveIndex, currentPlayer.symbol);
       this.players.setNextPlayer();
     }
     const printWinner = new WinnerPrinter(
-      this.winner.getWinner(this.board.values)
+      this.gameRules.getWinner(this.board.values)
     );
-    console.log(this.board.print());
+    console.log(this.boardPrinter.printer("-", this.board.values));
     printWinner.winnerPrinter();
   }
 
   gameover() {
-    return Validations.isGameOver(this.board.values);
+    return GameRules.isGameOver(this.board.values);
   }
 }
 

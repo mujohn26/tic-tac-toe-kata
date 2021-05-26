@@ -1,6 +1,4 @@
 import prompt from "prompt";
-import Board from "./board";
-import Validation from "./validations";
 
 class HumanPlayer {
   constructor(symbol) {
