@@ -1,17 +1,13 @@
-import { random } from "underscore";
 import GameRules from "./game.rules";
 
 export class RandomPlayer {
-  constructor(player) {
-    this.symbol = player;
+  constructor(symbol) {
+    this.symbol = symbol;
   }
 
-  async getMove(boardValues) {
-    return RandomPlayer.getRandomIndex(boardValues);
-  }
-
-  static getRandomIndex(boardValues) {
+  getMove(boardValues) {
     const emptyIndexies = GameRules.getEmptyIndexies(boardValues);
     return emptyIndexies[Math.floor(Math.random() * emptyIndexies.length)];
   }
+
 }

@@ -9,7 +9,7 @@ export class AiPlayer {
   async getMove(boardValues, player) {
     AiPlayer.AI_PLAYER = player;
     AiPlayer.HUMAN_PLAYER = player === "O" ? "X" : "O";
-    let bestScore = -1000;
+    let bestScore = -Infinity;
     let bestMove = -1;
     for (let i = 0; i < boardValues.length; i++) {
       if (boardValues[i] === null) {
@@ -37,7 +37,7 @@ export class AiPlayer {
     }
 
     if (isMaxmizing) {
-      let bestScore = -1000;
+      let bestScore = -Infinity;
       for (let i = 0; i < boardValues.length; i++) {
         if (boardValues[i] === null) {
           boardValues[i] = AiPlayer.AI_PLAYER;
@@ -50,7 +50,7 @@ export class AiPlayer {
       }
       return bestScore;
     } else {
-      let bestScore = 800;
+      let bestScore = Infinity;
       for (let i = 0; i < boardValues.length; i++) {
         
         if (boardValues[i] === null) {

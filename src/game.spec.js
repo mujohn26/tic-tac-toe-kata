@@ -140,15 +140,4 @@ describe("Game", () => {
     });
   });
 
-  describe(".consoleLog", () => {
-    it("console log a text", async () => {
-      const consoleSpy = jest.spyOn(console, "log");
-
-      console.log("Please select player:\n 1: Human \n 2: Computer");
-
-      expect(consoleSpy).toHaveBeenCalledWith(
-        "Please select player:\n 1: Human \n 2: Computer"
-      );
-    });
-  });
 });

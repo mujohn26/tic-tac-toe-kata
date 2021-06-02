@@ -7,12 +7,19 @@ import { AiPlayer } from "./ai.player";
 import { RandomPlayer } from "./random.player";
 import { WinnerPrinter } from "./winnerPrinter";
 
+
+// const PLAYER_TYPES = [
+//   {name: "Human", className: HumanPlayer},
+//   {name: "AI", className: AiPlayer},
+//   {name: "Random", className: RandomPlayer},
+//   {name: "FirstMove", className: FirstMovePlayer},
+// ]
 export class GameSetup {
   constructor(prompt) {
     // this === gameSetup (instance)
     this.prompt = prompt;
   }
-  
+
   async getPlayerSelection(symbol) {
     console.log(`Please select player ${symbol}`);
     console.log("Select\n 1: Human \n 2: AI \n 3. Random");
