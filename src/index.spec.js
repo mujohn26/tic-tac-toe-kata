@@ -35,4 +35,15 @@ describe("Index", () => {
     console.log = oldConsoleLog;
     expect(consoleSpy).toHaveBeenCalledWith(returnData);
   });
+
+  it("plays the game", () => {
+    // const game = new Game(["human", "human"]);
+    
+    // Expect human1 to get prompt.
+    // Human1 enters 0.
+
+    // Expect human2 to get prompt.
+    // Human2 enters 5.
+
+  })
 });

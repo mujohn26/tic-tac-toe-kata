@@ -36,11 +36,13 @@ describe("Board", () => {
 
     expect(board.values).toEqual(["X", null, null, null, null, null, null, null, null]);
   });
+});
 
+describe("BoardPrinter", () => {
   it("prints empy board of string or symbols", () => {
     const board = new Board()
     // board.setValues("-");
-    const boardPrinter = new BoardPrinter()
+    const boardPrinter = new BoardPrinter({emptyMark: "-"})
     const returnData =
       "\n" +
       " " +
@@ -66,13 +68,13 @@ describe("Board", () => {
       " | " +
       "-" +
       "\n";
-    expect(boardPrinter.printer("-", board.values)).toEqual(returnData);
+    expect(boardPrinter.printer(board.values)).toEqual(returnData);
 
   });
     it("prints if  board is marked", () => {
       const board = new Board();
           board.mark(0, "X");
-      const boardPrinter = new BoardPrinter();
+      const boardPrinter = new BoardPrinter({emptyMark: "-"});
       const returnData =
         "\n" +
         " " +
@@ -98,11 +100,11 @@ describe("Board", () => {
         " | " +
         "-" +
         "\n";
-      expect(boardPrinter.printer("-", board.values)).toEqual(returnData);
+      expect(boardPrinter.printer(board.values)).toEqual(returnData);
     });
       it("prints board of numbers", () => {
         const board = new Board();
-        const boardPrinter = new BoardPrinter();
+        const boardPrinter = new BoardPrinter({emptyMark: "number"});
         const returnData =
           "\n" +
           " " +
@@ -128,14 +130,14 @@ describe("Board", () => {
           " | " +
           8 +
           "\n";
-        expect(boardPrinter.printer("-", board.values, 'number')).toEqual(returnData);
+        expect(boardPrinter.printer(board.values)).toEqual(returnData);
       });
   
         it("prints board of numbers if board is marked", () => {
           const board = new Board();
           board.mark(0, "X");
           board.mark(4, "O");
-          const boardPrinter = new BoardPrinter();
+          const boardPrinter = new BoardPrinter({emptyMark: "number"});
           const returnData =
             "\n" +
             " " +
@@ -161,7 +163,7 @@ describe("Board", () => {
             " | " +
             8 +
             "\n";
-          expect(boardPrinter.printer("-", board.values, "number")).toEqual(
+          expect(boardPrinter.printer(board.values)).toEqual(
             returnData
           );
         });

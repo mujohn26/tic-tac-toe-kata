@@ -1,7 +1,8 @@
 export default class Players {
-  constructor(players) {
+  constructor(players, type) {
     this.players = players;
     this.currentIndex = 0;
+    
   }
 
   getCurrentPlayer() {

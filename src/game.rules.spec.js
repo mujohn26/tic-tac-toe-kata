@@ -75,48 +75,76 @@ describe("Game rules", () => {
     });
   });
 
-    describe(".getWinner", () => {
-      it("returns X as  winner of the game", () => {
-        const board = new Board();
-        const gameRules = new GameRules();
-        board.mark(0, "X");
-        board.mark(1, "X");
-        board.mark(2, "X");
-        expect(gameRules.getWinner(board.values)).toEqual("X");
-      });
-
-      it("returns Null if there is a draw", () => {
-        const board = new Board();
-        const gameRules = new GameRules();
-        board.mark(0, "X");
-        board.mark(1, "0");
-        board.mark(2, "X");
-        board.mark(3, "0");
-        board.mark(4, "X");
-        board.mark(5, "0");
-        board.mark(6, "0");
-        board.mark(7, "X");
-        board.mark(8, "0");
-        expect(gameRules.getWinner(board.values)).toBeNull();
-      });
-
-      it("returns player1 as  winner of the game", () => {
-        const player1 = new HumanPlayer("X");
-        const board = new Board();
-        const gameRules = new GameRules();
-        board.mark(0, player1);
-        board.mark(1, player1);
-        board.mark(2, player1);
-        expect(gameRules.getWinner(board.values)).toEqual(player1);
-      });
-
-      it("returns X as the winner", () => {
-        const board = new Board();
-        const gameRules = new GameRules();
-        board.mark(2, "X");
-        board.mark(4, "X");
-        board.mark(6, "X");
-        expect(gameRules.getWinner(board.values)).toEqual("X");
-      });
+  describe(".getWinner", () => {
+    it("returns X as  winner of the game", () => {
+      const board = new Board();
+      const gameRules = new GameRules();
+      board.mark(0, "X");
+      board.mark(1, "X");
+      board.mark(2, "X");
+      expect(gameRules.getWinner(board.values)).toEqual("X");
     });
+
+    it("returns Null if there is a draw", () => {
+      const board = new Board();
+      const gameRules = new GameRules();
+      board.mark(0, "X");
+      board.mark(1, "0");
+      board.mark(2, "X");
+      board.mark(3, "0");
+      board.mark(4, "X");
+      board.mark(5, "0");
+      board.mark(6, "0");
+      board.mark(7, "X");
+      board.mark(8, "0");
+      expect(gameRules.getWinner(board.values)).toBeNull();
+    });
+
+    it("returns player1 as  winner of the game", () => {
+      const player1 = new HumanPlayer("X");
+      const board = new Board();
+      const gameRules = new GameRules();
+      board.mark(0, player1);
+      board.mark(1, player1);
+      board.mark(2, player1);
+      expect(gameRules.getWinner(board.values)).toEqual(player1);
+    });
+
+    it("returns X as the winner", () => {
+      const board = new Board();
+      const gameRules = new GameRules();
+      board.mark(2, "X");
+      board.mark(4, "X");
+      board.mark(6, "X");
+      expect(gameRules.getWinner(board.values)).toEqual("X");
+    });
+  });
+
+  describe(".getEmptyIndexies", () => {
+    it("returns empty indexies on the board", () => {
+      const board = new Board();
+      board.mark(2, "X");
+      board.mark(4, "X");
+      board.mark(6, "X");
+      const returnData = [0, 1, 3, 5, 7, 8];
+      expect(GameRules.getEmptyIndexies(board.values)).toEqual(returnData);
+    });
+  });
+
+  describe(".getAiWinner", () => {
+    it("returns true if X wins", () => {
+      const board = new Board();
+      board.mark(3, "X");
+      board.mark(4, "X");
+      board.mark(5, "X");
+      expect(GameRules.getAiWinner(board.values, "X")).toEqual(true);
+    });
+    it("returns true if X wins", () => {
+      const board = new Board();
+      board.mark(3, "X");
+      board.mark(4, "X");
+      board.mark(6, "X");
+      expect(GameRules.getAiWinner(board.values, "X")).toEqual(false);
+    });
+  });
 });

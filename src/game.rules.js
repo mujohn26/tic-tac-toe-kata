@@ -1,5 +1,5 @@
 class GameRules {
-  static winCombinations = [
+  static WIN_COMBINATIONS = [
     [0, 1, 2],
     [0, 3, 6],
     [0, 4, 8],
@@ -10,13 +10,13 @@ class GameRules {
     [6, 7, 8],
   ];
   getWinner(board) {
-    for (let i = 0; i < GameRules.winCombinations.length; i++) {
-      const firstValue = board[GameRules.winCombinations[i][0]];
-      const winnerExists = GameRules.winCombinations[i].every(
+    for (let i = 0; i < GameRules.WIN_COMBINATIONS.length; i++) {
+      const firstValue = board[GameRules.WIN_COMBINATIONS[i][0]];
+      const winnerExists = GameRules.WIN_COMBINATIONS[i].every(
         (value) => board[value] === firstValue && board[value] !== null
       );
       if (winnerExists) {
-        return board[GameRules.winCombinations[i][0]];
+        return board[GameRules.WIN_COMBINATIONS[i][0]];
       }
     }
     return null;
@@ -29,15 +29,16 @@ class GameRules {
     if (index > 9 || index < 0) {
       return false;
     }
-    if (board[index] === "X" || board[index] === "O") {
-      return false;
+    if (board[index] !== null) {
+      return false; 
     }
+
     return true;
   }
 
   static isEmptyBoard(board) {
     return board.every((value) => {
-      return value !== "X" && value !== "O";
+      return value === null;
     });
   }
 
@@ -49,7 +50,7 @@ class GameRules {
 
     if (
       board.every((value) => {
-        return value === "X" || value === "O";
+        return value !== null;
       })
     ) {
       return true;
@@ -57,6 +58,27 @@ class GameRules {
 
     if (gameRules.getWinner(board)) {
       return true;
+    }
+    return false;
+  }
+
+  static getEmptyIndexies(boadValues) {
+    return boadValues.reduce((acc, value, index) => {
+      if (value === null) {
+        acc.push(index);
+      }
+      return acc;
+    }, []);
+  }
+
+  static getAiWinner(boardValues, player) {
+    for (let i = 0; i < GameRules.WIN_COMBINATIONS.length; i++) {
+      const winnerExists = GameRules.WIN_COMBINATIONS[i].every(
+        (value) => boardValues[value] === player
+      );
+      if (winnerExists) {
+        return true;
+      }
     }
     return false;
   }

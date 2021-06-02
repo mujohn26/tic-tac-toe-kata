@@ -4,60 +4,57 @@ export class Board {
   }
 
   mark(index, symbol) {
-    if (this.values[index] !== "X" && this.values[index] !== "O") {
+    if (this.values[index] === null) {
       this.values[index] = symbol;
     }
-  }
-
-  setValues(value, board, type) {
-    let arrayData;
- 
-    if (type === "number") {
-      arrayData = board.map((i, index) => {
-        const data = i === null ? index : i;
-        return data;
-      });
-    } else {
-      arrayData = board.map((i, index) => {
-        const data = i === null ? value : i;
-        return data;
-      });
-    }
-    this.values = arrayData;
-    return this.values;
   }
 }
 
 export class BoardPrinter {
-  constructor() {
-    this.board = new Board();
+  constructor(options) {
+    this.emptyMark =  options.emptyMark;
   }
-  printer(value, board, type) {
-    this.board.setValues(value, board, type);
+  printer(boardValues) {
+    const print = (boardValues, index) => {
+      if(boardValues[index] === null) {
+        if(this.emptyMark === "number") {
+          return index;
+        }
+        else if(this.emptyMark === "space") {
+          return " ";
+        }
+        else {
+          return this.emptyMark;
+        }
+      }
+      else {
+        return boardValues[index];
+      }
+    }
     const returnData =
       "\n" +
       " " +
-      this.board.values[0] +
+      print(boardValues, 0) +
       " | " +
-      this.board.values[1] +
+      print(boardValues, 1) +
       " | " +
-      this.board.values[2] +
+      print(boardValues, 2) +
       "\n" +
       " ----------\n" +
       " " +
-      this.board.values[3] +
+      print(boardValues, 3) +
       " | " +
-      this.board.values[4] +
+      print(boardValues, 4) +
       " | " +
-      this.board.values[5] +
+      print(boardValues, 5) +
       "\n" +
       " ----------\n" +
       " " +
-      this.board.values[6] +
+      print(boardValues, 6) +
       " | " +
-      this.board.values[7] +
+      print(boardValues, 7) +
       " | " +
-      this.board.values[8] +
+      print(boardValues, 8) +
       "\n";
     return returnData;
   }
