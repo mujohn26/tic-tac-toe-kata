@@ -1,54 +1,51 @@
 import { Board, BoardPrinter } from "./board";
-import HumanPlayer from "./player";
-import GameRules from "./game.rules";
+import HumanPlayer from "./player/humanPlayer";
+import GameRules from "./gameRules";
 import prompt from "prompt";
 import Players from "./players";
-import { AiPlayer } from "./ai.player";
-import { RandomPlayer } from "./random.player";
+import { AiPlayer } from "./player/aiPlayer";
+import { RandomPlayer } from "./player/randomPlayer";
 import { WinnerPrinter } from "./winnerPrinter";
+import { FirstMovePlayer } from "./player/firstMovePlayer";
 
-
-// const PLAYER_TYPES = [
-//   {name: "Human", className: HumanPlayer},
-//   {name: "AI", className: AiPlayer},
-//   {name: "Random", className: RandomPlayer},
-//   {name: "FirstMove", className: FirstMovePlayer},
-// ]
 export class GameSetup {
+  static PLAYER_TYPES = [
+    { name: "Human", className: HumanPlayer },
+    { name: "AI", className: AiPlayer },
+    { name: "Random", className: RandomPlayer },
+    { name: "First Move", className: FirstMovePlayer },
+  ];
   constructor(prompt) {
-    // this === gameSetup (instance)
     this.prompt = prompt;
   }
 
   async getPlayerSelection(symbol) {
     console.log(`Please select player ${symbol}`);
-    console.log("Select\n 1: Human \n 2: AI \n 3. Random");
+    console.log(`Select\n`);
+    for (let i = 0; i < GameSetup.PLAYER_TYPES.length; i++) {
+      console.log(`${i + 1}.${GameSetup.PLAYER_TYPES[i].name}`);
+    }
     const { [symbol]: selection } = await this.prompt.get([symbol]);
 
     return selection;
   }
   async getPlayer(symbol) {
-    const playerSelection = await this.getPlayerSelection(symbol);
-    if (playerSelection === "1") {
-      return new HumanPlayer(symbol);
-    } else if(playerSelection === "2") {
-      return new AiPlayer(symbol);
-    }
-    else {
-      return new RandomPlayer(symbol);
-    }
+    const playerSelection = parseInt(await this.getPlayerSelection(symbol));
+    return new GameSetup.PLAYER_TYPES[playerSelection - 1].className(symbol);
   }
   async getPlayers() {
-    const players =  new Players([await this.getPlayer("X"), await this.getPlayer("O")]);
-    return players
+    const players = new Players([
+      await this.getPlayer("X"),
+      await this.getPlayer("O"),
+    ]);
+    return players;
   }
-
 }
 
 export class Game {
   constructor() {
     this.board = new Board();
-    this.gameSetup =  new GameSetup(prompt)
+    this.gameSetup = new GameSetup(prompt);
     this.gameRules = new GameRules();
     this.dashPrinter = new BoardPrinter({ emptyMark: "-" });
     this.numberPrinter = new BoardPrinter({ emptyMark: "number" });
@@ -60,8 +57,7 @@ export class Game {
   }
 
   async start() {
-  
-    const players = await this.gameSetup.getPlayers()
+    const players = await this.gameSetup.getPlayers();
 
     while (!this.gameover()) {
       let moveIndex;
@@ -69,9 +65,12 @@ export class Game {
       this.printCurrentBoardState();
       // Use new GameRules class here, use a more friendly method name
       while (!GameRules.isValidMove(this.board.values, moveIndex)) {
-        moveIndex = await currentPlayer.getMove(this.board.values, currentPlayer.symbol);
+        moveIndex = await currentPlayer.getMove(
+          this.board.values,
+          currentPlayer.symbol
+        );
       }
-      const symbol = currentPlayer.symbol
+      const symbol = currentPlayer.symbol;
 
       this.board.mark(moveIndex, symbol);
       players.setNextPlayer();

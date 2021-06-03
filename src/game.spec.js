@@ -1,7 +1,8 @@
 import { GameSetup } from "./game";
-import HumanPlayer from "./player";
-import { AiPlayer } from "./ai.player";
+import HumanPlayer from "./player/humanPlayer";
+import { AiPlayer } from "./player/aiPlayer";
 import Players from "./players";
+import { values } from "underscore";
 
 describe("Game", () => {
   const log = console.log;
@@ -22,7 +23,7 @@ describe("Game", () => {
 
   describe("#getPlayerSelection", () => {
     it("returns 1 when user selection is 1", async () => {
-      const prompt =  createPrompt("1");
+      const prompt = createPrompt("1");
 
       const gameSetup = new GameSetup(prompt);
       const selection = await gameSetup.getPlayerSelection("X");
@@ -31,7 +32,7 @@ describe("Game", () => {
     });
 
     it("returns 2 when user selection is 2", async () => {
-      const prompt =  createPrompt("2");
+      const prompt = createPrompt("2");
 
       const gameSetup = new GameSetup(prompt);
       const selection = await gameSetup.getPlayerSelection("X");
@@ -76,8 +77,9 @@ describe("Game", () => {
 
       const gameSetup = new GameSetup(prompt);
       const selection = await gameSetup.getPlayerSelection("O");
-
-      expect(console.log).toHaveBeenCalledWith("Select\n 1: Human \n 2: AI \n 3. Random");
+      GameSetup.PLAYER_TYPES.forEach((value, index) => {
+        expect(console.log).toHaveBeenCalledWith(`${index + 1}.${value.name}`);
+      });
       expect(selection).toEqual("1");
     });
   });
@@ -139,5 +141,4 @@ describe("Game", () => {
       });
     });
   });
-
 });

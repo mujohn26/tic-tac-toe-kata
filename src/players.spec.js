@@ -1,5 +1,4 @@
 import Players from "./players";
-import Player from './player';
 
 describe("Players", () => {
   it("returns current player", () => {

@@ -1,4 +1,4 @@
-import { RandomPlayer } from "./random.player";
+import { RandomPlayer } from "./player/randomPlayer";
 import { Board } from "./board";
 
 describe("Random player", () => {

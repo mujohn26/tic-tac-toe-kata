@@ -1,5 +1,5 @@
 import { Board } from "./board";
-import { AiPlayer } from "./ai.player";
+import { AiPlayer } from "./player/aiPlayer";
 
 describe("AI Player", () => {
   describe(".getMove", () => {

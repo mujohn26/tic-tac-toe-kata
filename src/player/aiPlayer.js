@@ -1,4 +1,4 @@
-import GameRules from "./game.rules";
+import GameRules from "../gameRules";
 
 export class AiPlayer {
   constructor(player) {

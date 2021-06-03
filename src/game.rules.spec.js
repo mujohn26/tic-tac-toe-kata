@@ -1,6 +1,6 @@
-import GameRules from "./game.rules";
+import GameRules from "./gameRules";
 import { Board } from "./board";
-import HumanPlayer from "./player";
+import HumanPlayer from "./player/humanPlayer";
 
 describe("Game rules", () => {
   describe(".___isValidMove", () => {
