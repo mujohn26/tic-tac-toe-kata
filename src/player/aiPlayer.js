@@ -14,7 +14,9 @@ export class AiPlayer {
     for (let i = 0; i < boardValues.length; i++) {
       if (boardValues[i] === null) {
         boardValues[i] = player;
-        let score = await this.minMax(boardValues, 0, false);
+        // board.mark(player, i)
+        // board.undoLastMove();
+        let score = await this.minMax(boardValues, false);
         boardValues[i] = null;
         if (score > bestScore) {
           bestScore = score;
@@ -41,7 +43,7 @@ export class AiPlayer {
       for (let i = 0; i < boardValues.length; i++) {
         if (boardValues[i] === null) {
           boardValues[i] = AiPlayer.AI_PLAYER;
-          let score = await this.minMax(boardValues, 0, false);
+          let score = await this.minMax(boardValues, false);
           boardValues[i] = null;
           if (score > bestScore) {
             bestScore = score;
@@ -55,7 +57,7 @@ export class AiPlayer {
         
         if (boardValues[i] === null) {
           boardValues[i] = AiPlayer.HUMAN_PLAYER;
-          let score = await this.minMax(boardValues, 0, true);
+          let score = await this.minMax(boardValues, true);
           boardValues[i] = null;
           if (score < bestScore) {
             bestScore = score;

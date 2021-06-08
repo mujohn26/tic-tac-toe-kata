@@ -2,7 +2,6 @@ import { GameSetup } from "./game";
 import HumanPlayer from "./player/humanPlayer";
 import { AiPlayer } from "./player/aiPlayer";
 import Players from "./players";
-import { values } from "underscore";
 
 describe("Game", () => {
   const log = console.log;

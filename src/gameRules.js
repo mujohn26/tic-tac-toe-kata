@@ -1,4 +1,9 @@
+import { GameSetup } from "./game";
 class GameRules {
+  constructor(boardValues) {
+    // boardValues = ref1
+    this.boardValues = boardValues;
+  }
   static WIN_COMBINATIONS = [
     [0, 1, 2],
     [0, 3, 6],
@@ -30,10 +35,17 @@ class GameRules {
       return false;
     }
     if (board[index] !== null) {
-      return false; 
+      return false;
     }
 
     return true;
+  }
+  
+  isEmptyBoard2() {
+    
+    return this.boardValues.every((value) => {
+      return value === null;
+    });
   }
 
   static isEmptyBoard(board) {
@@ -81,6 +93,101 @@ class GameRules {
       }
     }
     return false;
+  }
+
+  static async isSelectionValid(input) {
+    if (input < 1) {
+      return false;
+    } else if (input > GameSetup.PLAYER_TYPES.length) {
+      return false;
+    } else if (isNaN(input)) {
+      return false;
+    }
+    return true;
+  }
+
+  static async checkWinnerOnRows(boardValues, gameSize) {
+    const boardChunks = await GameRules.chunkBoardInGroups(
+      boardValues,
+      gameSize
+    );
+    for (let i = 0; i < boardChunks.length; i++) {
+      let counter = 0;
+      for (let j = 0; j < boardChunks[i].length; j++) {
+        if (boardChunks[i][0] === boardChunks[i][j]) {
+          counter++;
+        }
+      }
+      if (counter === gameSize) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  static async checkWinnerOnColumns(boardValues, gameSize) {
+    const boardChunks = await GameRules.chunkBoardInGroups(
+      boardValues,
+      gameSize
+    );
+
+    for (let i = 0; i < boardChunks.length; i++) {
+      let counter = 0;
+      for (let j = 0; j < boardChunks.length; j++) {
+        if (boardChunks[0][i] === boardChunks[j][i]) {
+          counter++;
+        }
+      }
+      if (counter === gameSize) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static async checkWinnerOnDiagonals(boardValues, gameType) {
+    const boardChunks = await GameRules.chunkBoardInGroups(
+      boardValues,
+      gameType
+    );
+
+    let isWinner = false;
+    for (let i = 0; i < boardChunks.length; i++) {
+      if (boardChunks[0][0] === boardChunks[i][i]) {
+        isWinner = true;
+      } else {
+        isWinner = false;
+      }
+    }
+
+    if (isWinner) {
+      return true;
+    }
+
+    let length = boardChunks.length - 1;
+    for (let i = 0; i < boardChunks.length; i++) {
+      if (boardChunks[0][boardChunks.length - 1] === boardChunks[i][length]) {
+        isWinner = true;
+      } else {
+        isWinner = false;
+      }
+      length = length - 1;
+    }
+
+    if (isWinner) {
+      return true;
+    }
+
+    return false;
+  }
+
+  static async chunkBoardInGroups(boardValues, size) {
+    var boardValuesData = [];
+    for (let i = 0; i < boardValues.length; i += size) {
+      boardValuesData.push(boardValues.slice(i, i + size));
+    }
+    return boardValuesData;
   }
 }
 

@@ -26,8 +26,13 @@ export class GameSetup {
       console.log(`${i + 1}.${GameSetup.PLAYER_TYPES[i].name}`);
     }
     const { [symbol]: selection } = await this.prompt.get([symbol]);
-
-    return selection;
+    const isSelectionValid = await GameRules.isSelectionValid(selection);
+    if (isSelectionValid) {
+      return selection;
+    } else {
+      console.log("Invalid selection please try");
+      this.getPlayerSelection(symbol);
+    }
   }
   async getPlayer(symbol) {
     const playerSelection = parseInt(await this.getPlayerSelection(symbol));
